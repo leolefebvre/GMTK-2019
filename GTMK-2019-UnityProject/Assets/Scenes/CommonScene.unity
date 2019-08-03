@@ -1006,8 +1006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelList:
-  - LeosScene
-  - SachasTest Darkside
+  - Magritte 1
+  - "L\xE9ger 1"
   - "L\xE9ger 1"
   currentLevelIndex: 0
   allPieces: []
