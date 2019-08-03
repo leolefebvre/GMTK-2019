@@ -50,6 +50,7 @@ public class SelectionReleaseManager : Singleton<SelectionReleaseManager>
 
         piecesToRelease[currentPieceToRelease].PlayReleaseAnimation();
         piecesToRelease[currentPieceToRelease].UpdateColor(releaseColor);
+        SoundManager.Instance.PlaySelectionSound(currentPieceToRelease);
 
         currentPieceToRelease++;
 

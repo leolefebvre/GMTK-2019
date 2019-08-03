@@ -142,13 +142,17 @@ public class SelectionManager : Singleton<SelectionManager>
             SelectionSquare.Instance.UpdateSelectionColor(pieceToAdd.currentColor);
         }
 
-        SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1);
+        SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1, true);
     }
 
     public void RemoveToSelectedList(PieceController pieceToRemove)
     {
         if (selectedPieces.Contains(pieceToRemove))
         {
+            pieceToRemove.PlaySelectAnimation();
+            SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1, true);
+
+
             selectedPieces.Remove(pieceToRemove);
         }
 

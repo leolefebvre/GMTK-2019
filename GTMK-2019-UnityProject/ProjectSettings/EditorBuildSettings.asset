@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Van Gogh.unity
     guid: a3321d11b66b122418745ebe784953fd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Mondrian.unity
+    guid: 7e8ac5326ef1e624a912626ef747f866
   m_configObjects: {}
