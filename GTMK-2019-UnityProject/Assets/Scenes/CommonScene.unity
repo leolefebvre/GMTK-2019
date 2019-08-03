@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 426162162}
   - component: {fileID: 426162161}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Stripe4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 662539041}
   - component: {fileID: 662539040}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Stripe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1031,7 +1031,7 @@ Animator:
   m_GameObject: {fileID: 1274035880}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c40c77545bb94e45ab2e4cc3d924d19, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1179,7 +1179,7 @@ GameObject:
   - component: {fileID: 1337681813}
   - component: {fileID: 1337681812}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Stripe1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1466,7 +1466,7 @@ GameObject:
   - component: {fileID: 1719295662}
   - component: {fileID: 1719295661}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Stripe5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,7 +1635,7 @@ GameObject:
   - component: {fileID: 1820913924}
   - component: {fileID: 1820913923}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Stripe3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
