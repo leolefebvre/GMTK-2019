@@ -56,12 +56,7 @@ public class SelectionManager : Singleton<SelectionManager>
         //Release the mouse button
         if (Input.GetMouseButtonUp(0))
         {
-            SelectionSquare.Instance.HideSelector();
-            isHoldingDown = false;
-            UpdateSelectedPiecesColor();
-            DeactivateDetectionColider();
-            RemoveAllSelectedInList();
-
+            HandleRelease();
         }
 
         //Holding down the mouse button
@@ -82,6 +77,19 @@ public class SelectionManager : Singleton<SelectionManager>
         }
     }
 
+    public void HandleRelease()
+    {
+        SelectionSquare.Instance.HideSelector();
+        isHoldingDown = false;
+
+        if (selectedPieces.Count > 1)
+        {
+            SelectionReleaseManager.Instance.HandleRelease(new List<PieceController>(selectedPieces), selectedPieces[0].currentColor);
+        }
+        
+        DeactivateDetectionColider();
+        RemoveAllSelectedInList();
+    }
 
     public void UpdateDetectionCollider()
     {
@@ -109,25 +117,7 @@ public class SelectionManager : Singleton<SelectionManager>
             ActivateDetectionColider();
         }
     }
-
-    public void UpdateSelectedPiecesColor()
-    {
-        if(selectedPieces.Count < 2)
-        {
-            return;
-        }
-
-        Color newColor = selectedPieces[0].currentColor;
-
-        for (int i = 1; i < selectedPieces.Count; i++)
-        {
-            selectedPieces[i].UpdateColor(newColor);
-        }
-
-        // check win Condition
-        GameOverseer.Instance.CheckWinCondition();
-    }
-
+    
     public void AddToSelectedList(PieceController pieceToAdd)
     {
         if(selectedPieces.Contains(pieceToAdd))

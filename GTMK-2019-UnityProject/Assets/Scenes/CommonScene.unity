@@ -112,6 +112,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &125933588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 125933589}
+  - component: {fileID: 125933590}
+  m_Layer: 0
+  m_Name: SelectionReleaseJuiceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &125933589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125933588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1185732712}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125933590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125933588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981a3fea5578ac24989162d20b697e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenEffects: 0.1
+  piecesToRelease: []
+  releaseColor: {r: 0, g: 0, b: 0, a: 0}
+  currentPieceToRelease: 0
 --- !u!1 &154015297
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +573,7 @@ Transform:
   - {fileID: 1052359762}
   - {fileID: 154015298}
   - {fileID: 2035113284}
+  - {fileID: 125933589}
   m_Father: {fileID: 1487378154}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1137,6 +1185,7 @@ MonoBehaviour:
   - Magritte 1
   - "L\xE9ger 1"
   - "L\xE9ger 1"
+  - LeosScene
   currentLevelIndex: 0
   allPieces: []
 --- !u!1 &2021181390

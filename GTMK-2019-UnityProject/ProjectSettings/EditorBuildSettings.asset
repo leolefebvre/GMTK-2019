@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Scenes/Levels/L\xE9ger 1.unity"
     guid: 105d2a24b3b53b343b78a2efefe53e0f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Magritte 1.unity
+    guid: 3579d5e12b3ba284f817fde2a9b4db7d
   m_configObjects: {}

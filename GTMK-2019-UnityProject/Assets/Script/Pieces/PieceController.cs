@@ -19,7 +19,7 @@ public class PieceController : MonoBehaviour
             spRender.color = value;
         }
     }
-    
+
     [Header ("For debugging, don't touch")]
     public bool selected = false;
     public bool isInWinColor { get { return (currentColor.r == winColor.r) && (currentColor.g == winColor.g) && (currentColor.b == winColor.b); } }
@@ -60,8 +60,7 @@ public class PieceController : MonoBehaviour
         if(other.tag == "DetectionCollider")
         {
             SelectionManager.Instance.AddToSelectedList(this);
-
-            animator.SetTrigger("SelectTrigger");
+            PlaySelectAnimation();
         }
     }
 
@@ -72,4 +71,18 @@ public class PieceController : MonoBehaviour
             SelectionManager.Instance.RemoveToSelectedList(this);
         }
     }
+
+    #region animations triggers
+
+    public void PlaySelectAnimation()
+    {
+        animator.SetTrigger("SelectTrigger");
+    }
+
+    public void PlayReleaseAnimation()
+    {
+        animator.SetTrigger("ReleaseTrigger");
+    }
+
+    #endregion
 }
