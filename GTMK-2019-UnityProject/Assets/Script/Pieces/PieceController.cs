@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class PieceController : MonoBehaviour
@@ -39,7 +40,7 @@ public class PieceController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-		
+
 	}
 	
 	// Update is called once per frame

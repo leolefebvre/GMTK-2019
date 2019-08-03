@@ -54,6 +54,8 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             SelectionSquare.Instance.HideSelector();
             isHoldingDown = false;
+            UpdateSelectedPiecesColor();
+            RemoveAllSelectedInList();
         }
 
         //Holding down the mouse button
@@ -96,6 +98,21 @@ public class SelectionManager : Singleton<SelectionManager>
         DetectionCollider.size = new Vector2(sizeX, sizeY);
     }
 
+    public void UpdateSelectedPiecesColor()
+    {
+        if(selectedPieces.Count < 2)
+        {
+            return;
+        }
+
+        Color newColor = selectedPieces[0].currentColor;
+
+        for (int i = 1; i < selectedPieces.Count; i++)
+        {
+            selectedPieces[i].currentColor = newColor;
+        }
+    }
+
     public void AddToSelectedList(PieceController pieceToAdd)
     {
         if(selectedPieces.Contains(pieceToAdd))
@@ -124,6 +141,11 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             SelectionSquare.Instance.SetSelectionColorToDefault();
         }
+    }
+
+    public void RemoveAllSelectedInList()
+    {
+        selectedPieces.Clear();
     }
 
     void OnTriggerEnter2D(Collider2D other)
