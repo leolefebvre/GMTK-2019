@@ -100,10 +100,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
         //Set the size of the square
         detectionCollider.size = new Vector2(sizeX, sizeY);
-
-
         
-
         // activate the collider after changing it's shape if it's not active
         if (!isDetectionColliderActive)
         {
@@ -124,6 +121,9 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             selectedPieces[i].UpdateColor(newColor);
         }
+
+        // check win Condition
+        GameOverseer.Instance.CheckWinCondition();
     }
 
     public void AddToSelectedList(PieceController pieceToAdd)

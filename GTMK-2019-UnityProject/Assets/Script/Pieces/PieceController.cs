@@ -21,7 +21,7 @@ public class PieceController : MonoBehaviour
 
     [Header ("For debugging, don't touch")]
     public bool selected = false;
-    public bool isInWinColor = false;
+    public bool isInWinColor { get { return currentColor == winColor; } }
 
 
     private SpriteRenderer _spRenderer;
