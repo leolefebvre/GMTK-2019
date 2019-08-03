@@ -29,6 +29,8 @@ public class SelectionManager : Singleton<SelectionManager>
         get { return detectionCollider.gameObject.activeSelf; }
     }
 
+    private float timeLastPieceAdded = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,6 +135,12 @@ public class SelectionManager : Singleton<SelectionManager>
             return;
         }
 
+        if(timeLastPieceAdded == Time.time)
+        {
+            //it means that two pieces were selected at the same time, in this case we check which one is in the front and keep this one
+            Debug.Log("Two at the same time");
+        }
+
         selectedPieces.Add(pieceToAdd);
 
         // if this is the first piece selected, set border color to this piece
@@ -140,6 +148,8 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             SelectionSquare.Instance.UpdateSelectionColor(pieceToAdd.currentColor);
         }
+
+        SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1);
     }
 
     public void RemoveToSelectedList(PieceController pieceToRemove)
