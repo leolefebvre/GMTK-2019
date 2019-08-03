@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LeosScene.unity
     guid: b55eb6dc868b66546aff58ac07e99532
   - enabled: 1
-    path: Assets/Scenes/SachasScene 1.unity
+    path: Assets/Scenes/SachasTest Darkside.unity
     guid: 833ef7a03e55f8844908451f44db664f
   m_configObjects: {}
