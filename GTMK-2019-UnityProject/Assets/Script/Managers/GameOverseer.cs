@@ -86,7 +86,7 @@ public class GameOverseer : Singleton<GameOverseer>
     public void LaunchVictory()
     {
         EndLevelJuiceManager.Instance.LaunchVictoryJuice();
-        LoadNextLevel();
+        // The new level loading will be triggered throught the animation
     }
 
     public List<PieceController> GetAllPiecesInLevel()
@@ -110,7 +110,6 @@ public class GameOverseer : Singleton<GameOverseer>
         {
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                Debug.Log("scene " + (i + 1) + " name : " + SceneManager.GetSceneAt(i).name);
                 if(levelList.Contains(SceneManager.GetSceneAt(i).name))
                 {
                     currentLevelIndex = levelList.FindIndex(x => x.Equals(SceneManager.GetSceneAt(i).name));

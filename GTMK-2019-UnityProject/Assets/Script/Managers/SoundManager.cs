@@ -66,10 +66,7 @@ public class SoundManager : Singleton<SoundManager>
 
     IEnumerator WaitForNextQueueOpening()
     {
-        Debug.Log("waiting");
         yield return new WaitForSeconds((float) timeBetweenQueueSounds);
-
-        Debug.Log("end wayting");
         PlayNextSoundInQueueOrReleaseIt();
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
 {
@@ -8,6 +9,12 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
     public GameObject victorySound;
 
     public AnimationClip victoryAnimationClip;
+
+    public Image victoryStripe1;
+    public Image victoryStripe2;
+    public Image victoryStripe3;
+    public Image victoryStripe4;
+    public Image victoryStripe5;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +30,15 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
 
     public void LaunchVictoryJuice()
     {
+        if(LevelColors.Instance != null)
+        {
+            victoryStripe1.color = copyColorWithoutAlpha(LevelColors.Instance.color1);
+            victoryStripe2.color = copyColorWithoutAlpha(LevelColors.Instance.color2);
+            victoryStripe3.color = copyColorWithoutAlpha(LevelColors.Instance.color3);
+            victoryStripe4.color = copyColorWithoutAlpha(LevelColors.Instance.color4);
+            victoryStripe5.color = copyColorWithoutAlpha(LevelColors.Instance.color5);
+        }
+
         victoryAnimatorGameObject.SetActive(true);
         victorySound.SetActive(true);
 
@@ -40,5 +56,10 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
         yield return new WaitForSeconds(victoryAnimationClip.length);
 
         HideAndResetVictoryJuice();
+    }
+
+    Color copyColorWithoutAlpha(Color newColor)
+    {
+        return new Color(newColor.r, newColor.g, newColor.b, 1);
     }
 }

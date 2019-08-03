@@ -204,10 +204,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5511956d0882893489e20a97e392f4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryAnimatorGameObject: {fileID: 776156197}
+  victoryAnimatorGameObject: {fileID: 1274035880}
   victorySound: {fileID: 1316285120}
-  victoryAnimationClip: {fileID: 7400000, guid: 863bd34122599b7489034a0ed2c5cc21,
+  victoryAnimationClip: {fileID: 7400000, guid: 4c503a9f6cf069a4187ac24ebfa87104,
     type: 2}
+  victoryStripe1: {fileID: 1337681812}
+  victoryStripe2: {fileID: 662539040}
+  victoryStripe3: {fileID: 1820913923}
+  victoryStripe4: {fileID: 426162161}
+  victoryStripe5: {fileID: 1719295661}
 --- !u!1 &184409460
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +995,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1274035881}
   - component: {fileID: 1274035882}
+  - component: {fileID: 1274035883}
   m_Layer: 5
   m_Name: NewVictoryAnimation
   m_TagString: Untagged
@@ -1040,6 +1046,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1274035883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274035880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed236f8a5aa187449f1feae82f54651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1316285120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,6 +1765,7 @@ MonoBehaviour:
   - Miro
   - "L\xE9ger 1"
   - Mondrian
+  - Lissitzky
   currentLevelIndex: 0
   allPieces: []
 --- !u!1 &2021181390
