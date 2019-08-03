@@ -40,7 +40,7 @@ public class GameOverseer : Singleton<GameOverseer>
 
     #region victory management
 
-    public void GetAllPiecesInLevel()
+    public void PopulateAllPiecesInLevelList()
     {
         PieceController[] allPiecesFond = FindObjectsOfType<PieceController>();
 
@@ -69,7 +69,7 @@ public class GameOverseer : Singleton<GameOverseer>
     {
         if(isPieceListEmpty)
         {
-            GetAllPiecesInLevel();
+            PopulateAllPiecesInLevelList();
         }
 
         foreach (PieceController currentPieceControler in allPieces)
@@ -87,6 +87,16 @@ public class GameOverseer : Singleton<GameOverseer>
     {
         EndLevelJuiceManager.Instance.LaunchVictoryJuice();
         LoadNextLevel();
+    }
+
+    public List<PieceController> GetAllPiecesInLevel()
+    {
+        if (isPieceListEmpty)
+        {
+            PopulateAllPiecesInLevelList();
+        }
+
+        return new List<PieceController>(allPieces);
     }
 
     #endregion

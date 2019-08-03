@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenEffects: 0.1
+  timeBeforeWinCondition: 0.1
   piecesToRelease: []
   releaseColor: {r: 0, g: 0, b: 0, a: 0}
   currentPieceToRelease: 0
@@ -523,7 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionCollider: {fileID: 1341833438}
   colliderCount: 0
-  timeBeforeSelectorActivation: 0.1
+  timeBeforeSelectorActivation: 0
   timeOnStartClick: 0
   selectedPieces: []
   isHoldingDown: 0
@@ -1182,11 +1183,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelList:
+  - LeosScene
+  - Van Gogh
   - Magritte 1
   - Miro
-  - Van Gogh
   - "L\xE9ger 1"
-  - LeosScene
   currentLevelIndex: 0
   allPieces: []
 --- !u!1 &2021181390

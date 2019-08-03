@@ -20,7 +20,9 @@ public class PieceController : MonoBehaviour
         }
     }
 
-    [Header ("For debugging, don't touch")]
+    private Color originColor;
+
+    [Header("For debugging, don't touch")]
     public bool selected = false;
     public bool isInWinColor { get { return (currentColor.r == winColor.r) && (currentColor.g == winColor.g) && (currentColor.b == winColor.b); } }
 
@@ -39,13 +41,13 @@ public class PieceController : MonoBehaviour
         }
     }
     // Use this for initialization
-    void Start ()
+    void Start()
     {
+        originColor = currentColor;
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update() {
         leSuperBool = isInWinColor;
 
     }
@@ -55,9 +57,14 @@ public class PieceController : MonoBehaviour
         currentColor = newColor;
     }
 
+    public void RestartColor()
+    {
+        currentColor = originColor;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "DetectionCollider")
+        if (other.tag == "DetectionCollider")
         {
             SelectionManager.Instance.AddToSelectedList(this);
             PlaySelectAnimation();
@@ -82,6 +89,11 @@ public class PieceController : MonoBehaviour
     public void PlayReleaseAnimation()
     {
         animator.SetTrigger("ReleaseTrigger");
+    }
+
+    public void PlayRestartAnimation()
+    {
+        animator.SetTrigger("RestartTrigger");
     }
 
     #endregion

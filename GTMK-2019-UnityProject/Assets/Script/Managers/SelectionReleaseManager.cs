@@ -6,6 +6,7 @@ public class SelectionReleaseManager : Singleton<SelectionReleaseManager>
 {
     [Header("parameters")]
     public float timeBetweenEffects = 0.1f;
+    public float timeBeforeWinCondition = 0.1f;
 
     [Header("for debugging")]
     public List<PieceController> piecesToRelease;
@@ -59,8 +60,8 @@ public class SelectionReleaseManager : Singleton<SelectionReleaseManager>
 
             piecesToRelease.Clear();
 
-            // check win Condition
-            GameOverseer.Instance.CheckWinCondition();
+            // launch wait to check win condition
+            StartCoroutine(WaitToCheckWinCondition());
             return;
         }
 
@@ -72,5 +73,12 @@ public class SelectionReleaseManager : Singleton<SelectionReleaseManager>
         yield return new WaitForSeconds(timeBetweenEffects);
 
         ReleaseNextPiece();
+    }
+
+    IEnumerator WaitToCheckWinCondition()
+    {
+        yield return new WaitForSeconds(timeBetweenEffects);
+        // check win Condition
+        GameOverseer.Instance.CheckWinCondition();
     }
 }

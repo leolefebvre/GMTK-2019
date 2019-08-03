@@ -51,6 +51,7 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             timeOnStartClick = Time.time;
             selectionStartPos = Input.mousePosition;
+            isHoldingDown = true;
         }
 
         //Release the mouse button
@@ -59,6 +60,8 @@ public class SelectionManager : Singleton<SelectionManager>
             HandleRelease();
         }
 
+        /*
+
         //Holding down the mouse button
         if (Input.GetMouseButton(0))
         {
@@ -66,7 +69,7 @@ public class SelectionManager : Singleton<SelectionManager>
             {
                 isHoldingDown = true;
             }
-        }
+        } */
 
         //  Draw visual selector and update collider
         if (isHoldingDown)
