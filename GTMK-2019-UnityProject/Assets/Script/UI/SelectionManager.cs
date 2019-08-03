@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
-    public BoxCollider2D DetectionCollider;
+    public BoxCollider2D detectionCollider;
     public int colliderCount;
 
     [Header("SelectionSquare")]
@@ -24,13 +24,15 @@ public class SelectionManager : Singleton<SelectionManager>
     {
         get { return SelectionSquare.Instance.isSelectorActive; }
     }
-    
-
+    public bool isDetectionColliderActive
+    {
+        get { return detectionCollider.gameObject.activeSelf; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        DeactivateDetectionColider();
     }
 
     // Update is called once per frame
@@ -55,7 +57,9 @@ public class SelectionManager : Singleton<SelectionManager>
             SelectionSquare.Instance.HideSelector();
             isHoldingDown = false;
             UpdateSelectedPiecesColor();
+            DeactivateDetectionColider();
             RemoveAllSelectedInList();
+
         }
 
         //Holding down the mouse button
@@ -88,14 +92,23 @@ public class SelectionManager : Singleton<SelectionManager>
         Vector2 middle = new Vector2((startPosWorld.x + endPosWorld.x) / 2f, (startPosWorld.y + endPosWorld.y) / 2f);
 
         //Set the middle position of the GUI square
-        DetectionCollider.offset = middle;
+        detectionCollider.offset = middle;
 
         //Change the size of the square
         float sizeX = Mathf.Abs(startPosWorld.x - endPosWorld.x);
         float sizeY = Mathf.Abs(startPosWorld.y - endPosWorld.y);
 
         //Set the size of the square
-        DetectionCollider.size = new Vector2(sizeX, sizeY);
+        detectionCollider.size = new Vector2(sizeX, sizeY);
+
+
+        
+
+        // activate the collider after changing it's shape if it's not active
+        if (!isDetectionColliderActive)
+        {
+            ActivateDetectionColider();
+        }
     }
 
     public void UpdateSelectedPiecesColor()
@@ -109,7 +122,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
         for (int i = 1; i < selectedPieces.Count; i++)
         {
-            selectedPieces[i].currentColor = newColor;
+            selectedPieces[i].UpdateColor(newColor);
         }
     }
 
@@ -148,9 +161,13 @@ public class SelectionManager : Singleton<SelectionManager>
         selectedPieces.Clear();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void DeactivateDetectionColider()
     {
-        Debug.Log("Hey!");
+        detectionCollider.gameObject.SetActive(false);
     }
 
+    void ActivateDetectionColider()
+    {
+        detectionCollider.gameObject.SetActive(true);
+    }
 }

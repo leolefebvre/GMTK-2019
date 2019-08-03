@@ -13,7 +13,7 @@ public class PieceController : MonoBehaviour
         {
             return spRender.color;
         }
-        set
+        private set
         {
             spRender.color = value;
         }

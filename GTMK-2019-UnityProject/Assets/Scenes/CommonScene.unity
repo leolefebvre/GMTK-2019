@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eb4c15aed976f4ba00ea53129789e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DetectionCollider: {fileID: 1341833438}
+  detectionCollider: {fileID: 1341833438}
   colliderCount: 0
   timeBeforeSelectorActivation: 0.1
   timeOnStartClick: 0
@@ -258,7 +258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1341833438
 BoxCollider2D:
   m_ObjectHideFlags: 0
