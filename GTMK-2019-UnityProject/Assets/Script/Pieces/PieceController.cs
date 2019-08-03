@@ -21,8 +21,9 @@ public class PieceController : MonoBehaviour
 
     [Header ("For debugging, don't touch")]
     public bool selected = false;
-    public bool isInWinColor { get { return currentColor == winColor; } }
+    public bool isInWinColor { get { return (currentColor.r == winColor.r) && (currentColor.g == winColor.g) && (currentColor.b == winColor.b); } }
 
+    public bool leSuperBool = false;
 
     private SpriteRenderer _spRenderer;
     public SpriteRenderer spRender
@@ -45,8 +46,9 @@ public class PieceController : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        leSuperBool = isInWinColor;
+
+    }
 
     public void UpdateColor(Color newColor)
     {
