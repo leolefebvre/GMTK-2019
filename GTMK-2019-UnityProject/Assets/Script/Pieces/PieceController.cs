@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PieceController : MonoBehaviour
 {
+    public SpriteRenderer spRender;
     public Color winColor;
     public Color currentColor
     {
@@ -18,28 +19,27 @@ public class PieceController : MonoBehaviour
             spRender.color = value;
         }
     }
-
+    
     [Header ("For debugging, don't touch")]
     public bool selected = false;
     public bool isInWinColor { get { return (currentColor.r == winColor.r) && (currentColor.g == winColor.g) && (currentColor.b == winColor.b); } }
 
     public bool leSuperBool = false;
 
-    private SpriteRenderer _spRenderer;
-    public SpriteRenderer spRender
+    private Animator _animator;
+    public Animator animator
     {
         get
         {
-            if (_spRenderer == null)
+            if (_animator == null)
             {
-                _spRenderer = GetComponent<SpriteRenderer>();
+                _animator = GetComponent<Animator>();
             }
-            return _spRenderer;
+            return _animator;
         }
     }
-
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 
 	}
@@ -60,6 +60,8 @@ public class PieceController : MonoBehaviour
         if(other.tag == "DetectionCollider")
         {
             SelectionManager.Instance.AddToSelectedList(this);
+
+            animator.SetTrigger("SelectTrigger");
         }
     }
 
