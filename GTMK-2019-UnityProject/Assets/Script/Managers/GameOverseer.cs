@@ -1,9 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverseer : Singleton<GameOverseer>
 {
+    public List<string> levelList;
+
+    public int currentLevelIndex = 0;
+
+    public string currentLevelName
+    {
+        get { return levelList[currentLevelIndex]; }
+    }
+
     [SerializeField]
     private List<PieceController> allPieces;
 
@@ -15,7 +25,8 @@ public class GameOverseer : Singleton<GameOverseer>
     // Start is called before the first frame update
     void Start()
     {
-        
+        CheckOtherLevelsOnStart();
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
     // Update is called once per frame
@@ -24,17 +35,19 @@ public class GameOverseer : Singleton<GameOverseer>
         
     }
 
+    #region victory management
+
     public void GetAllPiecesInLevel()
     {
         PieceController[] allPiecesFond = FindObjectsOfType<PieceController>();
 
         foreach (PieceController currentPiece in allPiecesFond)
         {
-            addPiecetoList(currentPiece);
+            AddPiecetoList(currentPiece);
         }
     }
 
-    public void addPiecetoList(PieceController pieceToAdd)
+    public void AddPiecetoList(PieceController pieceToAdd)
     {
         if (allPieces.Contains(pieceToAdd))
         {
@@ -42,6 +55,11 @@ public class GameOverseer : Singleton<GameOverseer>
         }
 
         allPieces.Add(pieceToAdd);
+    }
+
+    public void ClearPiecesList()
+    {
+        allPieces.Clear();
     }
 
     public void CheckWinCondition()
@@ -60,10 +78,67 @@ public class GameOverseer : Singleton<GameOverseer>
         }
         
         LaunchVictory();
+        LoadNextLevel();
     }
 
     public void LaunchVictory()
     {
         EndLevelJuiceManager.Instance.LaunchVictoryJuice();
     }
+
+    #endregion
+
+    #region loading management
+
+    // should only work for Editor
+    public void CheckOtherLevelsOnStart()
+    {
+        if(SceneManager.sceneCount > 1)
+        {
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Debug.Log("scene " + (i + 1) + " name : " + SceneManager.GetSceneAt(i).name);
+                if(levelList.Contains(SceneManager.GetSceneAt(i).name))
+                {
+                    currentLevelIndex = levelList.FindIndex(x => x.Equals(SceneManager.GetSceneAt(i).name));
+                }
+            }
+        }
+        else
+        {
+            LoadFirstLevel();
+        }
+    }
+
+    private void LoadFirstLevel()
+    {
+        currentLevelIndex = 0;
+        SceneManager.LoadScene(currentLevelName);
+    }
+
+    public void LoadNextLevel()
+    {
+        //start fondu au noir
+
+        //load new scene
+
+        if (currentLevelIndex == levelList.Count - 1)
+        {
+            Debug.Log("This was the last level");
+            return;
+        }
+
+        currentLevelIndex++;
+        SceneManager.LoadScene(currentLevelName);
+    }
+
+    private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        //Debug.Log("OnSceneLoaded: " + scene.name + " with mode " + mode);
+
+        SelectionManager.Instance.RemoveAllSelectedInList();
+        ClearPiecesList();
+    }
+
+    #endregion
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
 {
-    public GameObject victoryAnimation;
+    public GameObject victoryAnimatorGameObject;
     public GameObject victorySound;
+
+    public AnimationClip victoryAnimationClip;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,22 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
 
     public void LaunchVictoryJuice()
     {
-        victoryAnimation.SetActive(true);
+        victoryAnimatorGameObject.SetActive(true);
         victorySound.SetActive(true);
+
+        StartCoroutine(WaitToAddVictoryJuice());
+    }
+
+    public void HideAndResetVictoryJuice()
+    {
+        victoryAnimatorGameObject.SetActive(false);
+        victorySound.SetActive(false);
+    }
+
+    IEnumerator WaitToAddVictoryJuice()
+    {
+        yield return new WaitForSeconds(victoryAnimationClip.length);
+
+        HideAndResetVictoryJuice();
     }
 }

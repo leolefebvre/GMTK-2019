@@ -27,7 +27,6 @@ public class SceneRestarter : MonoBehaviour
 
     public void RestartCurrentScene()
     {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        SceneManager.LoadScene(GameOverseer.Instance.currentLevelName);
     }
 }
