@@ -1183,7 +1183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelList:
   - Magritte 1
-  - "L\xE9ger 1"
+  - Miro
+  - Van Gogh
   - "L\xE9ger 1"
   - LeosScene
   currentLevelIndex: 0

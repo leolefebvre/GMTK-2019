@@ -32,7 +32,10 @@ public class GameOverseer : Singleton<GameOverseer>
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown("w"))
+        {
+            LaunchVictory();
+        }
     }
 
     #region victory management
@@ -78,12 +81,12 @@ public class GameOverseer : Singleton<GameOverseer>
         }
         
         LaunchVictory();
-        LoadNextLevel();
     }
 
     public void LaunchVictory()
     {
         EndLevelJuiceManager.Instance.LaunchVictoryJuice();
+        LoadNextLevel();
     }
 
     #endregion
