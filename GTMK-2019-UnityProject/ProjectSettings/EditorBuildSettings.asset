@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Title_screen 2.unity
     guid: 4e16ec67f38926b4aa4b73c280f38a38
+  - enabled: 1
+    path: Assets/Scenes/Levels/Malevitch.unity
+    guid: 9d72f851cbe0f4646a5dce62962c2bb2
   m_configObjects: {}
