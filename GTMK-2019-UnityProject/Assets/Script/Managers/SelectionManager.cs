@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
@@ -49,9 +50,12 @@ public class SelectionManager : Singleton<SelectionManager>
 
         if (Input.GetMouseButtonDown(0))
         {
-            timeOnStartClick = Time.time;
-            selectionStartPos = Input.mousePosition;
-            isHoldingDown = true;
+            //check if the mouse is over a UI element before clicking, if so GTFO
+            if(EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            HandleOnClick();
         }
 
         //Release the mouse button
@@ -80,6 +84,14 @@ public class SelectionManager : Singleton<SelectionManager>
         }
     }
 
+    public void HandleOnClick()
+    {
+        timeOnStartClick = Time.time;
+        selectionStartPos = Input.mousePosition;
+        isHoldingDown = true;
+        GameOverseer.Instance.resetButton.interactable = false;
+    }
+
     public void HandleRelease()
     {
         SelectionSquare.Instance.HideSelector();
@@ -92,6 +104,7 @@ public class SelectionManager : Singleton<SelectionManager>
         
         DeactivateDetectionColider();
         RemoveAllSelectedInList();
+        GameOverseer.Instance.resetButton.interactable = true;
     }
 
     public void UpdateDetectionCollider()
