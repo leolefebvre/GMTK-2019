@@ -102,6 +102,7 @@ public class SelectionManager : Singleton<SelectionManager>
         selectionStartPos = Input.mousePosition;
         isHoldingDown = true;
         GameOverseer.Instance.resetButton.interactable = false;
+        GameOverseer.Instance.DisableQuitButton();
     }
 
     public void HandleRelease()
@@ -117,6 +118,7 @@ public class SelectionManager : Singleton<SelectionManager>
         DeactivateDetectionColider();
         RemoveAllSelectedInList();
         GameOverseer.Instance.resetButton.interactable = true;
+        GameOverseer.Instance.EnableQuitButton();
     }
 
     public void UpdateDetectionCollider()

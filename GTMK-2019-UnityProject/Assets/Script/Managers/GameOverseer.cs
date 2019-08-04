@@ -21,6 +21,7 @@ public class GameOverseer : Singleton<GameOverseer>
 
     [Header("references parameter")]
     public Button resetButton;
+    public Button quitButton;
 
     #endregion
 
@@ -169,6 +170,22 @@ public class GameOverseer : Singleton<GameOverseer>
     {
         Debug.Log("click on button");
         SceneRestarter.Instance.RestartLevel();
+    }
+
+    public void DisableQuitButton()
+    {
+        if(quitButton != null)
+        {
+            quitButton.interactable = false;
+        }
+    }
+
+    public void EnableQuitButton()
+    {
+        if (quitButton != null)
+        {
+            quitButton.interactable = true;
+        }
     }
 
 }
