@@ -1,26 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameOverseer : Singleton<GameOverseer>
 {
+    #region level management parameter
+    [Header("level management parameters")]
     public List<string> levelList;
-
     public int currentLevelIndex = 0;
-
     public string currentLevelName
     {
         get { return levelList[currentLevelIndex]; }
     }
 
+    #endregion
+
+    #region references parameter
+
+    [Header("references parameter")]
+    public Button resetButton;
+
+    #endregion
+
+    #region Win Condition parameters
     [SerializeField]
     private List<PieceController> allPieces;
-
     public bool isPieceListEmpty
     {
         get { return allPieces.Count == 0; }
     }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
