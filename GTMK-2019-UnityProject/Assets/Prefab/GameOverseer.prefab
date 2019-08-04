@@ -45,14 +45,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelList:
   - Title_screen 2
-  - Van Gogh
+  - Malevitch
   - Magritte 1
-  - Miro
+  - Van Gogh
   - "L\xE9ger 1"
   - Mondrian
   - Lissitzky
   - Kandinsky_hard
-  - Kandinsky_medium
+  - Miro
   currentLevelIndex: 0
   resetButton: {fileID: 0}
+  quitButton: {fileID: 0}
   allPieces: []
