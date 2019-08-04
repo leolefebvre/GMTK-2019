@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneRestarter : MonoBehaviour
+public class SceneRestarter : Singleton<SceneRestarter>
 {
     public string keyToRestart = "r";
 

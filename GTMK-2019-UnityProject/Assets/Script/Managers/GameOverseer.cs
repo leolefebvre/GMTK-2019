@@ -153,4 +153,10 @@ public class GameOverseer : Singleton<GameOverseer>
     }
 
     #endregion
+
+    public void ResquestReset()
+    {
+        SceneRestarter.Instance.RestartLevel();
+    }
+
 }
