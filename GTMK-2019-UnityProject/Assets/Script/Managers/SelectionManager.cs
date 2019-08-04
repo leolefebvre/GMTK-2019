@@ -21,7 +21,6 @@ public class SelectionManager : Singleton<SelectionManager>
     public List<PieceController> selectedPieces;
 
     public List<PieceController> piecesThatWereSelectedAtTheSameTime;
-    public List<float> closenessList;
     public List<PieceController> sortedPieceList;
 
     public List<PieceController> beforeReordering;
@@ -36,8 +35,7 @@ public class SelectionManager : Singleton<SelectionManager>
     {
         get { return detectionCollider.gameObject.activeSelf; }
     }
-
-    private float timeLastPieceAdded = 0f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -155,12 +153,6 @@ public class SelectionManager : Singleton<SelectionManager>
             return;
         }
 
-        if(timeLastPieceAdded == Time.time)
-        {
-            //it means that two pieces were selected at the same time, in this case we check which one is in the front and keep this one
-            Debug.Log("Two at the same time");
-        }
-
         selectedPieces.Add(pieceToAdd);
         pieceToAdd.selectionOrder = selectedPieces.Count - 1;
 
@@ -187,7 +179,7 @@ public class SelectionManager : Singleton<SelectionManager>
             pieceToRemove.PlaySelectAnimation();
             SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1, true);
 
-            //pieceToRemove.selectionOrder = int.MaxValue;
+            pieceToRemove.selectionOrder = int.MaxValue;
 
             selectedPieces.Remove(pieceToRemove);
         }
@@ -224,25 +216,19 @@ public class SelectionManager : Singleton<SelectionManager>
             return;
         }
 
-        //Reorder by closeness to the origin point;
-        Vector3 startPosWorld;
-        startPosWorld = Camera.main.ScreenToWorldPoint(selectionStartPos);
-        closenessList.Clear();
-
-        foreach (PieceController piece in piecesThatWereSelectedAtTheSameTime)
-        {
-            closenessList.Add(Vector3.Distance(piece.pieceCollider.bounds.ClosestPoint(startPosWorld), startPosWorld));
-        }
-
         sortedPieceList = new List<PieceController>(piecesThatWereSelectedAtTheSameTime);
         sortedPieceList.Sort((x, y) => x.distanceFromStartSelection.CompareTo(y.distanceFromStartSelection));
 
+        //Debug.Log(listToString(sortedPieceList));
 
         // add new order to affected pieces
         for (int i = 0; i < piecesThatWereSelectedAtTheSameTime.Count; i++)
         {
-            piecesThatWereSelectedAtTheSameTime[i].newSelectionOrder = sortedPieceList[i].selectionOrder;
+            sortedPieceList[i].newSelectionOrder = piecesThatWereSelectedAtTheSameTime[i].selectionOrder;
         }
+
+        // reorder the selection list
+        //Debug.Log("Reordering \n" + listToString(selectedPieces));
 
         // update selected pieces selectionOrder
         foreach (PieceController piece in piecesThatWereSelectedAtTheSameTime)
@@ -251,11 +237,10 @@ public class SelectionManager : Singleton<SelectionManager>
         }
 
         beforeReordering = new List<PieceController>(selectedPieces);
-
-        // reorder the selection list
-        Debug.Log("Reordering " + listToString(selectedPieces));
-
+        
         selectedPieces.Sort((x, y) => x.selectionOrder.CompareTo(y.selectionOrder));
+
+        
         UpdateSelectionColor();
     }
 
@@ -265,7 +250,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
         foreach (PieceController piece in pieceControllers)
         {
-            returnString += piece.name + " - ";
+            returnString += piece.name + "," + piece.distanceFromStartSelection + "," + piece.selectionOrder + "," + piece.newSelectionOrder + "\n";
         }
 
         return returnString;
@@ -273,7 +258,13 @@ public class SelectionManager : Singleton<SelectionManager>
 
     public void RemoveAllSelectedInList()
     {
+        foreach(PieceController piece in selectedPieces)
+        {
+            piece.selectionOrder = int.MaxValue;
+        }
+
         selectedPieces.Clear();
+        UpdateSelectionColor();
     }
 
     void DeactivateDetectionColider()

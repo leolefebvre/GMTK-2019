@@ -168,7 +168,7 @@ public class GameOverseer : Singleton<GameOverseer>
 
     public void ResquestReset()
     {
-        Debug.Log("click on button");
+        //Debug.Log("click on button");
         SceneRestarter.Instance.RestartLevel();
     }
 
@@ -186,6 +186,12 @@ public class GameOverseer : Singleton<GameOverseer>
         {
             quitButton.interactable = true;
         }
+    }
+
+    public void RequestQuit()
+    {
+        Debug.Log("quit");
+        Application.Quit();
     }
 
 }
