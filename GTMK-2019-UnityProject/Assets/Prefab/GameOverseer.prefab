@@ -52,7 +52,7 @@ MonoBehaviour:
   - Miro
   - Lissitzky
   - Kandinsky_hard
-  - 
+  - Credits
   currentLevelIndex: 0
   resetButton: {fileID: 0}
   quitButton: {fileID: 0}
