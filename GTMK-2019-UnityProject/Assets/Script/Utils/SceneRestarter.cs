@@ -39,6 +39,8 @@ public class SceneRestarter : Singleton<SceneRestarter>
         piecesToRestart = new List<PieceController>(GameOverseer.Instance.GetAllPiecesInLevel());
         currentPieceToRestart = 0;
 
+        SoundManager.Instance.resetAudioSource.Play();
+
         RestartNextPiece();
     }
 

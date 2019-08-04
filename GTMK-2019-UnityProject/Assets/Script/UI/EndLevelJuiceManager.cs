@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
 {
     public GameObject victoryAnimatorGameObject;
-    public GameObject victorySound;
+    public AudioSource VictorySoundSource;
 
     public AnimationClip victoryAnimationClip;
 
@@ -40,7 +40,7 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
         }
 
         victoryAnimatorGameObject.SetActive(true);
-        victorySound.SetActive(true);
+        VictorySoundSource.Play();
 
         StartCoroutine(WaitToAddVictoryJuice());
     }
@@ -48,7 +48,6 @@ public class EndLevelJuiceManager : Singleton<EndLevelJuiceManager>
     public void HideAndResetVictoryJuice()
     {
         victoryAnimatorGameObject.SetActive(false);
-        victorySound.SetActive(false);
     }
 
     IEnumerator WaitToAddVictoryJuice()

@@ -6,6 +6,7 @@ public class SoundManager : Singleton<SoundManager>
 {
     public List<AudioClip> selectionSounds;
 
+    public AudioSource resetAudioSource;
     public AudioSource selectionAudioSource;
     public int repeatLastNumber = 2;
 
