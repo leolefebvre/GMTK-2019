@@ -26,6 +26,8 @@ public class GameOverseer : Singleton<GameOverseer>
     #endregion
 
     #region Win Condition parameters
+    [Header("win parameter")]
+    public float victoryAnimationDelay = 1.0f;
     [SerializeField]
     private List<PieceController> allPieces;
     public bool isPieceListEmpty
@@ -91,7 +93,14 @@ public class GameOverseer : Singleton<GameOverseer>
                 return;
             }
         }
-        
+
+        StartCoroutine(WaitToLaunchVictory());
+    }
+
+    IEnumerator WaitToLaunchVictory()
+    {
+        yield return new WaitForSeconds(victoryAnimationDelay);
+
         LaunchVictory();
     }
 
@@ -148,7 +157,7 @@ public class GameOverseer : Singleton<GameOverseer>
 
         if (currentLevelIndex == levelList.Count - 1)
         {
-            Debug.Log("This was the last level");
+            //Debug.Log("This was the last level");
             return;
         }
 
