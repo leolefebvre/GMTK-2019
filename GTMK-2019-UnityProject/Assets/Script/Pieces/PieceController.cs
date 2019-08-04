@@ -28,6 +28,11 @@ public class PieceController : MonoBehaviour
 
     public bool leSuperBool = false;
 
+    public float timeOnSelect = 0f;
+
+    public int selectionOrder = int.MaxValue;
+    public int newSelectionOrder = int.MaxValue;
+
     private Animator _animator;
     public Animator animator
     {
@@ -40,6 +45,38 @@ public class PieceController : MonoBehaviour
             return _animator;
         }
     }
+
+    private Collider2D _collider;
+    public Collider2D pieceCollider
+    {
+        get
+        {
+            if (_collider == null)
+            {
+                // grab the first collider we can find
+                foreach (Collider2D coll in GetComponents<Collider2D>())
+                {
+                    if (coll.enabled)
+                    {
+                        _collider = coll;
+                        break;
+                    }
+                }
+
+            }
+            return _collider;
+        }
+    }
+
+    public float distanceFromStartSelection
+    {
+        get
+        {
+            Vector3 startPosWorld = Camera.main.ScreenToWorldPoint(SelectionManager.Instance.selectionStartPos);
+            return Vector3.Distance(pieceCollider.bounds.ClosestPoint(startPosWorld), startPosWorld);
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -66,6 +103,7 @@ public class PieceController : MonoBehaviour
     {
         if (other.tag == "DetectionCollider")
         {
+            timeOnSelect = Time.time;
             SelectionManager.Instance.AddToSelectedList(this);
             PlaySelectAnimation();
         }
@@ -97,4 +135,5 @@ public class PieceController : MonoBehaviour
     }
 
     #endregion
+    
 }

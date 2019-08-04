@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
+    public bool useCorrectionHandling = true;
     public BoxCollider2D detectionCollider;
     public int colliderCount;
 
     [Header("SelectionSquare")]
-    private Vector3 selectionStartPos;
+    public Vector3 selectionStartPos;
     private Vector3 selectionEndPos;
 
     [Header("Timing")]
@@ -18,6 +19,12 @@ public class SelectionManager : Singleton<SelectionManager>
     public float timeOnStartClick;
     
     public List<PieceController> selectedPieces;
+
+    public List<PieceController> piecesThatWereSelectedAtTheSameTime;
+    public List<float> closenessList;
+    public List<PieceController> sortedPieceList;
+
+    public List<PieceController> beforeReordering;
 
     public bool isHoldingDown = false;
 
@@ -42,6 +49,11 @@ public class SelectionManager : Singleton<SelectionManager>
     void Update()
     {
         UpdateSelection();
+
+        if(Input.GetKeyDown("b"))
+        {
+            Debug.Break();
+        }
     }
 
     public void UpdateSelection()
@@ -148,11 +160,19 @@ public class SelectionManager : Singleton<SelectionManager>
         }
 
         selectedPieces.Add(pieceToAdd);
+        pieceToAdd.selectionOrder = selectedPieces.Count - 1;
 
         // if this is the first piece selected, set border color to this piece
         if(selectedPieces.Count == 1)
         {
             SelectionSquare.Instance.UpdateSelectionColor(pieceToAdd.currentColor);
+        }
+        else
+        {
+            if(useCorrectionHandling)
+            {
+                SelectionCorrectionHandling(pieceToAdd);
+            }
         }
 
         SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1, true);
@@ -165,15 +185,88 @@ public class SelectionManager : Singleton<SelectionManager>
             pieceToRemove.PlaySelectAnimation();
             SoundManager.Instance.PlaySelectionSound(selectedPieces.Count - 1, true);
 
+            //pieceToRemove.selectionOrder = int.MaxValue;
 
             selectedPieces.Remove(pieceToRemove);
         }
 
-        // if there is nothing selected, back to default color
+        // we update the color in case the first selection changed, or in case there is no more piece to update.
+        UpdateSelectionColor();
+    }
+
+    public void UpdateSelectionColor()
+    {
         if (selectedPieces.Count == 0)
         {
             SelectionSquare.Instance.SetSelectionColorToDefault();
         }
+        else
+        {
+            SelectionSquare.Instance.UpdateSelectionColor(selectedPieces[0].currentColor);
+        }
+    }
+
+    public void SelectionCorrectionHandling(PieceController currentPiece)
+    {
+        if(selectedPieces.Count <= 1)
+        {
+            // no check to be done here
+            return;
+        }
+        piecesThatWereSelectedAtTheSameTime.Clear();
+
+        piecesThatWereSelectedAtTheSameTime = selectedPieces.FindAll(x => x.timeOnSelect == currentPiece.timeOnSelect);
+
+        if(piecesThatWereSelectedAtTheSameTime.Count <= 1)
+        {
+            return;
+        }
+
+        //Reorder by closeness to the origin point;
+        Vector3 startPosWorld;
+        startPosWorld = Camera.main.ScreenToWorldPoint(selectionStartPos);
+        closenessList.Clear();
+
+        foreach (PieceController piece in piecesThatWereSelectedAtTheSameTime)
+        {
+            closenessList.Add(Vector3.Distance(piece.pieceCollider.bounds.ClosestPoint(startPosWorld), startPosWorld));
+        }
+
+        sortedPieceList = new List<PieceController>(piecesThatWereSelectedAtTheSameTime);
+        sortedPieceList.Sort((x, y) => x.distanceFromStartSelection.CompareTo(y.distanceFromStartSelection));
+
+
+        // add new order to affected pieces
+        for (int i = 0; i < piecesThatWereSelectedAtTheSameTime.Count; i++)
+        {
+            piecesThatWereSelectedAtTheSameTime[i].newSelectionOrder = sortedPieceList[i].selectionOrder;
+        }
+
+        // update selected pieces selectionOrder
+        foreach (PieceController piece in piecesThatWereSelectedAtTheSameTime)
+        {
+            piece.selectionOrder = piece.newSelectionOrder;
+        }
+
+        beforeReordering = new List<PieceController>(selectedPieces);
+
+        // reorder the selection list
+        Debug.Log("Reordering " + listToString(selectedPieces));
+
+        selectedPieces.Sort((x, y) => x.selectionOrder.CompareTo(y.selectionOrder));
+        UpdateSelectionColor();
+    }
+
+    public string listToString(List<PieceController> pieceControllers)
+    {
+        string returnString = "";
+
+        foreach (PieceController piece in pieceControllers)
+        {
+            returnString += piece.name + " - ";
+        }
+
+        return returnString;
     }
 
     public void RemoveAllSelectedInList()

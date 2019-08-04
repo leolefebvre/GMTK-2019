@@ -13,6 +13,7 @@ public class SoundManager : Singleton<SoundManager>
     [Header("Queue parameters")]
 
     public double timeBetweenQueueSounds = 0.05f;
+    public int queueLimit = 10;
     public List<AudioClip> soundQueue;
 
     public bool isSourceOpen = true;
@@ -52,6 +53,11 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlaySoundInQueue(AudioClip sound)
     {
+        if(soundQueue.Count >= queueLimit)
+        {
+            return;
+        }
+
         if(isSourceOpen)
         {
             selectionAudioSource.PlayOneShot(sound);
