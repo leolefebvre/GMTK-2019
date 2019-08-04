@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Lissitzky.unity
     guid: 8af6973272315e74eb7fda2bca650606
+  - enabled: 1
+    path: Assets/Scenes/Levels/Kandinsky_hard.unity
+    guid: ea393169c36010942aa854d92852293d
+  - enabled: 1
+    path: Assets/Scenes/Levels/Kandinsky_medium.unity
+    guid: 88ffb5f8df1205f49923ab182646431b
   m_configObjects: {}

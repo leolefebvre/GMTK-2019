@@ -156,6 +156,7 @@ public class GameOverseer : Singleton<GameOverseer>
 
     public void ResquestReset()
     {
+        Debug.Log("click on button");
         SceneRestarter.Instance.RestartLevel();
     }
 
